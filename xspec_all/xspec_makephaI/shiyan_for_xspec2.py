@@ -50,11 +50,11 @@ print(par3.error)
 value = par3.values[0]
 value_arr1,value_arr2,ffff = par3.error
 print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
-'''
+
 Plot.device='/xs'
 Plot.xAxis='keV'
 Plot.yLog=True
-'''
+
 Plot('eeufspec')
 
 for i in range(len(brightdet)):
@@ -70,7 +70,7 @@ plt.axvline(x = value,color = 'r')
 plt.axvline(x = value_arr1,color = 'g')
 plt.axvline(x = value_arr2,color = 'g')
 plt.xlabel('Energy KeV')
-plt.ylabel('rate')
+plt.ylabel(r'${KeV^{2} (Photons cm^{-2}s^{-1}keV^{-1})}$')
 plt.xscale('log')
 plt.yscale('log')
 plt.savefig(savedir + 'foldedspec.png')
@@ -92,7 +92,7 @@ plt.axvline(x = value_arr2,color = 'g')
 plt.xscale('log')
 plt.yscale('log')
 plt.xlabel('Energy KeV')
-plt.ylabel('rate')
+plt.ylabel(r'${\/KeV\/^{2} (\/Photons \/cm^{-2}\/s^{-1}\/keV^{-1})}$')
 plt.savefig(savedir +'eeufspec.png')
 plt.close()
 
