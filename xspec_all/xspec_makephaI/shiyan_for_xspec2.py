@@ -7,8 +7,8 @@ savedir = '/home/laojin/shiyan/xspec_all/xspec_makephaI/'
 if(os.path.exists(savedir) == False):
 	os.makedirs(savedir)
 
-#brightdet = [,'A_slice_bn190114873_n7.pha','A_slice_bn190114873_n4.pha']
-brightdet = ['A_slice_bn190114873_b1.pha','A_slice_bn190114873_n7.pha']
+brightdet = ['A_slice_bn190114873_b1.pha','A_slice_bn190114873_n7.pha','A_slice_bn190114873_n4.pha']
+#brightdet = ['A_slice_bn190114873_b1.pha','A_slice_bn190114873_n7.pha']
 
 #rsplist = ['glg_cspec_n7_bn190114873_v02.rsp','glg_cspec_b1_bn190114873_v02.rsp','glg_cspec_n4_bn190114873_v02.rsp']
 #baselist = ['A_slice_bn190114873_n7.bkg','A_slice_bn190114873_b1.bkg','A_slice_bn190114873_n4.bkg']
@@ -42,7 +42,8 @@ Fit.perform()#运行拟合
 
 Fit.error('3.0 3')
 Fit.perform()
-
+AllModels.calcFlux("8. 40000.0 err") #参数需要一个能量的范围，之前在拟合光谱时我们设置了一个范围，我们暂时用它。
+#AllModels.calcFlux('1:**-200.,40000.0,err-** 2-3:**-8.,800.,err-**')#不能这么用
 par3=AllModels(1)(3)#第一个模型的第三个参数
 print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
 print(par3.values)
@@ -51,10 +52,20 @@ value = par3.values[0]
 value_arr1,value_arr2,ffff = par3.error
 print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
 
+#AllModels.calcFlux(".1 10.0 err")
+#AllModels.calcLumin(".1 10. .05 err")
+
+flux = AllData(1).flux              #计算流量，‘1’代表第一个光谱的流量
+#lumin = AllModels(1).lumin
+print('1 flux:',list(flux))               #流量，流量下界，流量上界，光子数，光子数下，光子数上
+#print('lumin:',lumin)
+print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+
+'''
 Plot.device='/xs'
 Plot.xAxis='keV'
 Plot.yLog=True
-
+'''
 Plot('eeufspec')
 
 for i in range(len(brightdet)):
